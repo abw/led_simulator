@@ -7,7 +7,7 @@ import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <Router>
-    <Ledsim />
+    <Ledsim autoStart={false}/>
   </Router>,
   document.getElementById('ledsim')
 );

@@ -1,25 +1,30 @@
 import React from 'react'
 import Matrix from './Model/Matrix'
 import MatrixDisplay from './Display/Matrix'
-import Pattern from './Patterns/MultiModA'
+//import Pattern from './Patterns/MultiModA'
+//import Pattern from './Patterns/CircleA'
+import Pattern from './Patterns/BarsA'
+import Controls from './Routes/Controls'
 
 class Ledsim extends React.Component {
     static defaultProps = {
-        width: 32,
-        height: 32,
+        width: 24,
+        height: 18,
     }
     constructor(props) {
         super(props);
         this.animate = this.stepAnimation.bind(this);
         this.matrix = new Matrix(props);
-        this.pattern = new Pattern(props);
+        this.pattern = new Pattern({ matrix: this.matrix, ...props });
         this.startTime = Date.now();
         this.state = {
             grid: this.matrix.grid,
         };
     }
     componentDidMount() {
-         this.startAnimation();
+        if (this.props.autoStart) {
+            this.startAnimation();
+        }
     }
     componentWillUnmount() {
         this.stopAnimation();
@@ -46,8 +51,9 @@ class Ledsim extends React.Component {
         }
     }
     tick() {
-        this.animateCells();
+        let {time} = this.state;
         let tick = Date.now();
+        this.pattern.animate(time);
         this.frameCount++;
         if (this.frameCount % 10 === 9) {
             this.fps  = Math.floor(10000 / (tick - this.lastTick));
@@ -59,14 +65,6 @@ class Ledsim extends React.Component {
             fps: this.fps,
         });
     }
-    animateCells() {
-        let {time} = this.state;
-        this.matrix.grid.forEach(
-            (row, y) => row.forEach(
-                (cell, x) => row[x] = this.pattern.cell(time, x, y)
-            )
-        );
-    }
     render() {
         let {grid, fps} = this.state;
         return <React.Fragment>
@@ -75,6 +73,7 @@ class Ledsim extends React.Component {
             <h2 className="author">by Andy Wardley</h2>
           </header>
           <main>
+          <Controls/>
           <MatrixDisplay grid={grid}/>
           </main>
           <footer>

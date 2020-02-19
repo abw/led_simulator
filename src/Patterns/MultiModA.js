@@ -1,14 +1,10 @@
+import Shader from '../Pattern/Shader';
 import Modulator from '../Model/Modulator'
 import { fract, HSVtoRGB } from '../Utils'
 
-class MultiModulatorA {
+class MultiModulatorA extends Shader {
     constructor(props) {
-        this.width   = props.width;
-        this.height  = props.height;
-        this.maxx    = this.width - 1;
-        this.maxy    = this.height - 1;
-        this.midx    = Math.floor(this.maxx/2);
-        this.midy    = Math.floor(this.maxy/2);
+        super(props);
         this.falloff = props.falloff || 0.5;
         this.modA = new Modulator({
             width: this.width,
@@ -72,7 +68,7 @@ class MultiModulatorA {
             speed: 1,
         });
     }
-    cell(time, x, y) {
+    animateCell(time, x, y) {
         let a = this.modA.modulate(time, x, y);
         let b = this.modB.modulate(time, x, y);
         let c = this.modC.modulate(time, x, y);
@@ -82,12 +78,14 @@ class MultiModulatorA {
         c = c * c;
         let w = (a + b + c) / 1;
         w = w > 1 ? 1 : w;
+
         //let v = (d + c) / 1.5;
         //v = Math.pow(v, 2);
         return HSVtoRGB(
             fract(0.5 + Math.sin(time/3) * 0.5 + w/3),
             1 - fract(w * 2) / 1.2,
-            1, // - fract(v) / 3    // oil slick
+            1 - fract((w + 0.25) * 3) / 1.5    // oil slick
+
         );
     }
 }

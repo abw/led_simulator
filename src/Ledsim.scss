@@ -2,9 +2,43 @@
 
 $header-back: #446;
 $header-text: rgba(255,255,255,0.7);
+$range-col: rgba(255,255,255,0.4);
+$reset-col: rgba(255,255,255,0.2);
+$red: #a00;
+$blue: #06a;
+$orange: #e60;
+$green: #3a3;
+$hover: $green; //lighten($blue, 10%);
+$drag: $orange;
+$warm: $blue;
+$reset: $red;
+
 
 body {
     font-family: 'Roboto', 'Oxygen', 'Ubuntu', 'Droid Sans', 'Helvetica Neue', sans-serif;
+}
+
+.horz {
+    display: flex;
+    & > * {
+        flex: 1;
+    }
+}
+.vert {
+    display: flex;
+    flex-direction: column;
+    & > * {
+        flex: 1;
+    }
+}
+
+.debug.red {
+    background-color: rgba(red, 0.1);
+    border: 2px solid red;
+}
+
+.height-3 {
+    height: 30vh;
 }
 
 #ledsim {
@@ -60,4 +94,89 @@ button {
     background-color: #ccc;
     &:hover { background-color: #ff7f00 };
     &:focus { outline:0; }
+}
+
+.control {
+    .hardware {
+        position: relative;
+        //border: 1px solid red;
+    }
+
+    .value {
+        flex-grow: 0;
+        font-size: 1.5em;
+        line-height: 100%;
+        text-align: center;
+        user-select: none;
+        padding: 0;
+    }
+    .units {
+        flex-grow: 0;
+        font-size: 70%;
+        user-select: none;
+        color: rgba(black,0.4);
+        padding-left: 0.1em;
+    }
+    .caption {
+        flex-grow: 0;
+        font-size: 80%;
+        line-height: 130%;
+        text-align: center;
+        user-select: none;
+        color: rgba(black, 0.5);
+        white-space: nowrap;
+        padding: 0 0 0.25em 0;
+    }
+    .knob {
+        .dial {
+            fill: rgba(0, 0, 0, 0.2);
+        }
+        .reset {
+            fill: $reset-col
+        }
+        &:not(.drag) .reset:hover {
+            fill: $reset;
+        }
+        .range {
+            stroke: $range-col;
+            fill: transparent;
+            pointer-events: none;
+        }
+        .sweep {
+            stroke: $warm;
+            fill: transparent;
+            pointer-events: none;
+        }
+        &:hover {
+            .dial {
+                fill: rgba(0, 0, 0, 0.2);
+            }
+            .reset {
+                fill: $reset-col;
+            }
+            .range {
+                stroke: $range-col;
+            }
+            .sweep {
+                stroke: $hover;
+            }
+        }
+        &.drag {
+            .sweep {
+                stroke: $drag;
+            }
+            .dial {
+                fill: rgba(0, 0, 0, 0.7);
+            }
+        }
+    }
+}
+
+.controls {
+    padding-top: 0.5em;
+}
+
+.pad-h {
+    padding-top: 1em;
+    padding-bottom: 1em;
 }

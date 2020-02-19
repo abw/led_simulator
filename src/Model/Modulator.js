@@ -1,5 +1,6 @@
 import { fract, PI2 } from '../Utils';
 
+
 const defaults = {
     width: 24,
     height: 18,
@@ -65,7 +66,7 @@ const metrics = {
 };
 
 
-class Modulator {
+class Modulator  {
     constructor(args) {
         let props = this.props = { ...defaults, ...args };
         props.mindim = props.height < props.width
