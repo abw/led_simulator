@@ -1,0 +1,54 @@
+@import "style/reset.scss";
+
+$header-back: #446;
+$header-text: rgba(255,255,255,0.7);
+
+body {
+    font-family: 'Roboto', 'Oxygen', 'Ubuntu', 'Droid Sans', 'Helvetica Neue', sans-serif;
+}
+
+#ledsim {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    header, footer {
+        flex: 0;
+        padding: 0.5em;
+        text-align: center;
+        background-color: $header-back;
+        color: $header-text;
+    }
+    main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    .matrix {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 2px;
+        background-color: #888;
+        .row {
+            flex: 1;
+            display: flex;
+            .cell {
+                flex: 1;
+                background-color: #eee;
+                margin: 1px;
+            }
+        }
+    }
+}
+
+button {
+    margin: 0.25em;
+    font-size: 1.2rem;
+    padding: 0.2em 0.5em;
+    border: 4px solid #222;
+    border-radius: 5px;
+    background-color: #ccc;
+    &:hover { background-color: #ff7f00 };
+    &:focus { outline:0; }
+}
