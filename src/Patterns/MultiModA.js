@@ -85,7 +85,7 @@ class MultiModulatorA {
         //let v = (d + c) / 1.5;
         //v = Math.pow(v, 2);
         return HSVtoRGB(
-            fract(0.5 + Math.sin(time/4) * 0.5 + w/3),
+            fract(0.5 + Math.sin(time/3) * 0.5 + w/3),
             1 - fract(w * 2) / 1.2,
             1, // - fract(v) / 3    // oil slick
         );

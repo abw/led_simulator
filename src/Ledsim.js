@@ -28,7 +28,8 @@ class Ledsim extends React.Component {
         window.requestAnimationFrame(this.animate);
     }
     startAnimation() {
-        //this.startTime = Date.now();
+        this.lastTick = Date.now();
+        this.frameCount = 0;
         this.setState({ animating: true });
         this.scheduleAnimationStep();
     }
@@ -46,9 +47,16 @@ class Ledsim extends React.Component {
     }
     tick() {
         this.animateCells();
+        let tick = Date.now();
+        this.frameCount++;
+        if (this.frameCount % 10 === 9) {
+            this.fps  = Math.floor(10000 / (tick - this.lastTick));
+            this.lastTick = tick;
+        }
         this.setState({
-            time: (Date.now() - this.startTime) / 1000,
+            time: (tick - this.startTime) / 1000,
             grid: this.matrix.grid,
+            fps: this.fps,
         });
     }
     animateCells() {
@@ -60,7 +68,7 @@ class Ledsim extends React.Component {
         );
     }
     render() {
-        let {grid} = this.state;
+        let {grid, fps} = this.state;
         return <React.Fragment>
           <header>
             <h1>Led Matrix Simulator</h1>
@@ -68,9 +76,11 @@ class Ledsim extends React.Component {
           </header>
           <main>
           <MatrixDisplay grid={grid}/>
-          {console.log("props:", this.props)}
           </main>
           <footer>
+            <div className="info">
+              {fps} FPS
+            </div>
             <button onClick={() => this.startAnimation()}>Start</button>
             <button onClick={() => this.stopAnimation()}>Stop</button>
           </footer>
