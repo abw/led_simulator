@@ -13,6 +13,12 @@ body {
     display: flex;
     flex-direction: column;
     header, footer {
+        h1 {
+            font-size: 1.2em;
+        }
+        h2 {
+            font-size: 0.8em;
+        }
         flex: 0;
         padding: 0.5em;
         text-align: center;
@@ -29,7 +35,7 @@ body {
         display: flex;
         flex-direction: column;
         padding: 2px;
-        background-color: #888;
+        background-color: #222;
         .row {
             flex: 1;
             display: flex;

@@ -28,6 +28,7 @@ export function HSVtoRGB(h, s, v) {
         case 3: r = p; g = q; b = v; break;
         case 4: r = t; g = p; b = v; break;
         case 5: r = v; g = p; b = q; break;
+        default: break; 
     }
     return [
         Math.round(r * 255),

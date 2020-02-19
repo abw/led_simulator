@@ -76,14 +76,14 @@ class MultiModulatorA {
         let a = this.modA.modulate(time, x, y);
         let b = this.modB.modulate(time, x, y);
         let c = this.modC.modulate(time, x, y);
-        let d = this.modD.modulate(time, x, y);
+        //let d = this.modD.modulate(time, x, y);
         a = a * a;
         b = b * b;
         c = c * c;
         let w = (a + b + c) / 1;
         w = w > 1 ? 1 : w;
-        let v = (d + c) / 1.5;
-        v = Math.pow(v, 2);
+        //let v = (d + c) / 1.5;
+        //v = Math.pow(v, 2);
         return HSVtoRGB(
             fract(0.5 + Math.sin(time/4) * 0.5 + w/3),
             1 - fract(w * 2) / 1.2,
